@@ -5,9 +5,14 @@ import loadingGif from "../public/loading.gif";
 import useStore from "../src/store";
 
 export default function HomePage() {
-    const [address, setAddress] = useState(""); // 사용자의 주소 상태
+    const [address, setAddress] = useState({
+        city: "",
+        district: "",
+        road: "",
+    });
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태
-    const setLastLocation = useStore((state) => state.setLastLocation); // 위치 상태 관리를 위한 Zustand 스토어 사용
+    const setLastLocation = useStore((state) => state.setLastLocation);
+    // 위치 상태 관리를 위한 Zustand 스토어 사용
 
     // 사용자의 위도와 경도를 기반으로 주소 정보를 가져오는 함수
     const fetchLocation = async (latitude: number, longitude: number) => {
@@ -60,13 +65,16 @@ export default function HomePage() {
     // 주소 정보가 있을 경우 주소와 추천받기 링크를 표시
     return (
         <div className="flex h-screen justify-center items-center flex-col bg-gray-100 p-5">
-            {address && (
+            {address.city && (
                 <div className="text-left mb-12">
                     <p className="text-4xl font-bold text-black mb-2">
                         저는 현재
                     </p>
+                    <p className="text-5xl font-extrabold text-indigo-600">
+                        {address.city}
+                    </p>{" "}
                     <p className="text-5xl font-extrabold text-indigo-600 mb-2">
-                        {address}
+                        {address.district} {address.road}
                     </p>
                     <p className="text-4xl font-bold text-black">
                         여행중이에요
