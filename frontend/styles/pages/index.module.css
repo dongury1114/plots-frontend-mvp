@@ -1,63 +1,68 @@
-.container {
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.info {
-    margin-bottom: 2rem;
-}
-
-.button {
-    padding: 0.5rem 1rem;
-    background-color: #0070f3;
-    color: white;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.button:hover {
-    background-color: #0056b3;
-}
-
 /* index.module.css */
-
 .container {
     display: flex;
-    flex-direction: column;
+    height: 100vh;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    padding: 20px;
+    flex-direction: column;
 }
 
-.title {
-    font-size: 2rem;
-    color: #333;
-}
-
-.address {
-    font-size: 1.5rem;
-    color: #666;
-    margin: 20px 0;
-}
-
-.linkButton {
-    padding: 10px 20px;
-    background-color: #007bff;
+.headerSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면의 반 높이 */
+    background-image: url("/jeju_1.jpg");
+    /* background-image: url("/seoul_1.jpg"); */
+    background-size: cover;
+    background-position: center;
+    font-size: 5vh;
     color: white;
-    border: none;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
+    text-align: left;
+}
+
+.contentSection_1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면의 반 높이 */
+    background-image: url("/seoul_5.jpg");
+    background-size: cover;
+    background-position: center;
+    font-size: 5vh;
+    color: white;
+    text-align: left;
+}
+
+.contentSection_2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면의 반 높이 */
+    background-image: url("/seoul_3.jpg");
+    /* background-image: url("/seoul_2.jpg"); */
+    background-size: cover;
+    background-position: center;
+    font-size: 5vh;
+    color: white;
+    text-align: left;
+}
+
+.moveSection {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 100px; /* 높이 설정 */
+    background-color: #0070f3;
+}
+
+.moveSectionLink {
+    width: 100%; /* 부모 영역의 전체 너비를 차지하도록 설정 */
+    height: 100%; /* 부모 영역의 전체 높이를 차지하도록 설정 */
+    /* display: block; 블록 요소처럼 만들어 전체 영역을 차지하게 함 */
+    /* text-align: center; 텍스트 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
 }

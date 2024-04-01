@@ -1,0 +1,75 @@
+/* now.module.css */
+
+.container {
+    /* display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+}
+
+.adresstxt {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 4rem;
+}
+
+.info {
+    margin-bottom: 2rem;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    background-color: #0070f3;
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* index.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 35px;
+    padding-top: 100px;
+}
+
+.addressWrap {
+    margin-bottom: 150px;
+}
+.title {
+    font-size: 2rem;
+    color: #333;
+}
+
+.address {
+    font-size: 2.5rem;
+    color: #000;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.linkButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
