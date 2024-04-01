@@ -330,10 +330,15 @@ export default function Recommendation() {
 
     // 이동 수단 저장 이벤트 핸들러
     const handleTransportationSave = async (
-        selectedTransportation: string,
+        selectedTransportation: string | null,
         latitude: number,
         longitude: number
     ) => {
+        if (selectedTransportation === null) {
+            console.error("Transportation is null");
+            return;
+        }
+
         const requestBody = {
             destinations: travelDestinations.map((destination) => ({
                 label: destination.label,
