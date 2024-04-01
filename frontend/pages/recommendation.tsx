@@ -74,29 +74,10 @@ interface TransportationSaveRequest {
     };
 }
 
-// 목적지 목록 컴포넌트: 추가된 여행지를 나열하고 삭제 기능을 제공
-// const DestinationList = ({ destinations, onDelete }: DestinationListProps) => (
-//     <ul className={styles.destinationList}>
-//         {destinations.map((destination, index) => (
-//             <li key={index} className={styles.listItem}>
-//                 <div className={styles.destinationInfo}>
-//                     <span className={styles.destinationLabel}>
-//                         {destination.label}
-//                     </span>
-//                     <span className={styles.destinationName}>
-//                         {destination.name}
-//                     </span>
-//                 </div>
-//                 <button
-//                     className={styles.deleteButton}
-//                     onClick={() => onDelete(index)}
-//                 >
-//                     삭제
-//                 </button>
-//             </li>
-//         ))}
-//     </ul>
-// );
+interface SearchResultItem {
+    title: string;
+    address: string;
+}
 
 // 목적지 목록 컴포넌트
 const DestinationList = ({
@@ -128,11 +109,11 @@ const DestinationList = ({
             // 각 여행지의 라벨을 업데이트
             const updatedList = newList.map((destination, idx) => ({
                 ...destination,
-                label: String.fromCharCode("A".charCodeAt(0) + idx), // ASCII 코드를 사용하여 라벨 할당
+                label: String.fromCharCode("A".charCodeAt(0) + idx),
             }));
 
             setTravelDestinations(updatedList); // 업데이트된 목록으로 상태 업데이트
-            setDraggedIndex(null); // 드래그 상태 초기화
+            setDraggedIndex(null);
         };
 
     return (
@@ -297,37 +278,6 @@ export default function Recommendation() {
         router.push("/result");
     };
 
-    // const handleGoToRecommendation = () => {
-    //     if (travelDestinations.length === 0) {
-    //         alert("다녀온 여행지를 추가해주세요.");
-    //         return;
-    //     }
-
-    //     if (!transportation) {
-    //         alert("교통수단을 선택해주세요.");
-    //         return;
-    //     }
-
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(
-    //             (position) => {
-    //                 const { latitude, longitude } = position.coords;
-    //                 handleTransportationSave(
-    //                     transportation,
-    //                     latitude,
-    //                     longitude
-    //                 );
-    //             },
-    //             (error) => {
-    //                 console.error("Error getting current location:", error);
-    //                 alert("위치 정보를 가져오는데 실패했습니다.");
-    //             }
-    //         );
-    //     } else {
-    //         alert("Geolocation이 지원되지 않는 브라우저입니다.");
-    //     }
-    // };
-
     // 이동 수단 저장 이벤트 핸들러
     const handleTransportationSave = async (
         selectedTransportation: string | null,
@@ -350,47 +300,7 @@ export default function Recommendation() {
                 longitude: longitude,
             },
         };
-
-        // router.push({
-        //     pathname: "/result",
-        // });
     };
-
-    // 원래 추천요청 코드
-    // const handleTransportationSave = async (selectedTransportation: string) => {
-    //     const requestBody = {
-    //         destinations: travelDestinations.map((destination) => ({
-    //             label: destination.label,
-    //             name: destination.name,
-    //         })),
-    //         transportation: selectedTransportation,
-    //         currentLocation: lastLocation,
-    //     };
-
-    //     // 서버로 POST 요청을 보냅니다.
-    //     try {
-    //         const response = await fetch(
-    //             `${process.env.NEXT_PUBLIC_API_URL}/api/recommendation`,
-    //             {
-    //                 method: "POST",
-    //                 headers: { "Content-Type": "application/json" },
-    //                 body: JSON.stringify(requestBody),
-    //             }
-    //         );
-
-    //         if (!response.ok) throw new Error("추천 요청에 실패했습니다.");
-    //         const data = await response.json();
-    //         console.log("Received response data:", data);
-    //         router.push({
-    //             pathname: "/result",
-    //             query: { recommendations: JSON.stringify(data) },
-    //         });
-
-    //         setApiResponse(data);
-    //     } catch (error) {
-    //         console.error("추천 요청에 실패했습니다:", error);
-    //     }
-    // };
 
     useEffect(() => {
         const fetchUserLocation = () => {
@@ -414,7 +324,7 @@ export default function Recommendation() {
         };
 
         fetchUserLocation();
-    }, [transportation]); // 의존성 배열에 'transportation'을 추가하여 'transportation' 값이 변경될 때마다 useEffect가 재실행되도록 합니다.
+    }, [transportation]);
 
     useEffect(() => {
         const debounceId = setTimeout(() => {
@@ -432,12 +342,12 @@ export default function Recommendation() {
                         return response.json();
                     })
                     .then((data) => {
-                        // 응답 데이터에서 'items' 배열을 추출하여 'searchResults' 상태를 업데이트합니다.
-                        // 'title'과 'address' 정보를 활용하여 결과를 표시합니다.
-                        const formattedResults = data.results.map((item) => ({
-                            name: item.title.replace(/<[^>]+>/g, ""), // HTML 태그 제거
-                            address: item.address,
-                        }));
+                        const formattedResults = data.results.map(
+                            (item: SearchResultItem) => ({
+                                name: item.title.replace(/<[^>]+>/g, ""),
+                                address: item.address,
+                            })
+                        );
                         setSearchResults(formattedResults);
                     })
                     .catch((error) => {
@@ -455,25 +365,24 @@ export default function Recommendation() {
     }, [inputValue]); // inputValue 변경 시에만 실행
 
     useEffect(() => {
-        // 외부 클릭을 감지하는 함수
-        const handleClickOutside = (event) => {
-            // searchResultsRef.current가 null이 아니고, event.target이 searchResultsRef.current의 자식이 아닌 경우
+        const handleClickOutside = (event: MouseEvent) => {
+            if (!(event.target instanceof Node)) {
+                return;
+            }
             if (
                 searchResultsRef.current &&
-                !searchResultsRef.current.contains(event.target)
+                !(searchResultsRef.current as Node).contains(event.target)
             ) {
-                setSearchResults([]); // 외부 클릭 시 검색 결과 목록 숨김
+                setSearchResults([]);
             }
         };
 
-        // 'mousedown' 이벤트 리스너 추가
         document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            // 컴포넌트 언마운트 시 이벤트 리스너 제거
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [searchResultsRef]); // searchResultsRef가 변경될 때마다 이 useEffect를 재실행
+    }, [searchResultsRef]);
 
     const createNewLabel = () => {
         const lastLabelCharCode =
